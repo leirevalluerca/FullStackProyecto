@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import useAuth from "../../../hooks/use-auth";
+import useAuth from "../../../hooks/useAuth";
 import logoUaR from "../../../assets/UaR-LOGO.png";
 import LanguajeSelect from "../../common/LanguageSelect";
 import { useTranslation } from "react-i18next";
