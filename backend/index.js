@@ -18,32 +18,31 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Conexión a MongoDB (con manejo de errores mejorado)
-let isConnected = false;
+// Conexión a MongoDB optimizada para Vercel
+let cachedDb = null;
 
-const connectDB = async () => {
-  if (isConnected) {
-    return;
+async function connectToDatabase() {
+  if (cachedDb) {
+    return cachedDb;
   }
-  
-  try {
-    await mongoose.connect(process.env.MONGO_URI, {
-      serverSelectionTimeoutMS: 5000,
-    });
-    isConnected = true;
-    console.log('MongoDB connected');
-  } catch (error) {
-    console.error('MongoDB connection error:', error);
-    throw error;
-  }
-};
 
-// Middleware para conectar DB antes de cada request
+  const connection = await mongoose.connect(process.env.MONGO_URI, {
+    serverSelectionTimeoutMS: 5000,
+    socketTimeoutMS: 45000,
+  });
+
+  cachedDb = connection;
+  console.log('MongoDB connected');
+  return connection;
+}
+
+// Conectar antes de cada request
 app.use(async (req, res, next) => {
   try {
-    await connectDB();
+    await connectToDatabase();
     next();
   } catch (error) {
+    console.error('DB connection error:', error);
     res.status(500).json({ error: 'Database connection failed' });
   }
 });
@@ -53,10 +52,14 @@ app.use('/api/users', userRouter);
 app.use('/api/properties', propertyRouter);
 app.use('/api/bookings', bookingRouter);
 
+// Ruta raíz para testing
+app.get('/', (req, res) => {
+  res.json({ message: 'API is running' });
+});
+
 // Error handling
 app.use(notFound);
 app.use(internalServerError);
 
-// NO usar app.listen() en Vercel
-// Solo exportar la app
+// NO USAR app.listen() - Vercel lo maneja
 module.exports = app;
