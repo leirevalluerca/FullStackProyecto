@@ -1,0 +1,20 @@
+.burger {
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #fcfafa;
+  padding: 0.2rem 0.5rem;
+  outline: none;
+}
+
+.burger:hover {
+  color: #d1d1d1;
+}
+
+/* Oculto en desktop */
+@media (min-width: 769px) {
+  .burger {
+    display: none;
+  }
+}

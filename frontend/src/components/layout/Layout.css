@@ -1,0 +1,26 @@
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+  margin-top: 80px;
+  padding: 0;          
+}
+
+.outlet-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+  background: rgba(220, 220, 220, 0.1);
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .outlet-container {
+    padding: 0.5rem 0.5rem;
+  }
+}

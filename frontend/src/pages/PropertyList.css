@@ -1,0 +1,104 @@
+.properties-page {
+  width: 100%;
+  max-width: 1200px; /* ancho máximo en desktop */
+  margin: 0 auto;    /* centrado horizontal */
+  padding: 1rem;     /* opcional, espacio interno */
+  box-sizing: border-box;
+}
+
+/* Layout */
+.properties-layout {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* FILTER SIDEBAR */
+.filters {
+  width: 220px;
+  border-right: 1px solid #e0e0e0;
+  padding-right: 20px;
+}
+
+.filters h3 {
+  margin-bottom: 10px;
+}
+
+.filter-item {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+/* PROPERTY LIST */
+.properties-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* PROPERTY CARD */
+.property-card {
+  display: flex;
+  gap: 16px;
+  border: 1px solid #eaeaea;
+  border-radius: 8px;
+  padding: 12px;
+  align-items: center;
+}
+
+/* IMAGE */
+.property-image {
+  width: 150px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+/* INFO */
+.property-info {
+  flex: 1;
+}
+
+.property-info h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.property-location {
+  font-size: 14px;
+  color: #666;
+}
+
+.property-owner {
+  font-size: 13px;
+  color: #888;
+}
+
+/* PRICE */
+.property-price {
+  text-align: right;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.property-price small {
+  display: block;
+  font-size: 12px;
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  .properties-layout {
+    flex-direction: column;
+  }
+
+  .filters {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #e0e0e0;
+    padding-right: 0;
+    padding-bottom: 12px;
+  }
+}

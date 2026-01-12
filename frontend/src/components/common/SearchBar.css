@@ -1,0 +1,76 @@
+.search-bar {
+  display: flex;
+  gap: 10px;
+  background: #7a0000;
+  padding: 10px;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px #16385a8d;
+  align-items: center;
+}
+
+.search-bar input {
+  border: none;
+  flex: 1;  
+  outline: none;
+  padding: 10px;
+  border-radius: 15px;
+  background: #ffffff;
+  min-width: 0;
+}
+
+/* Location */
+.search-bar input[type="text"] {
+  flex: 3;
+}
+
+.search-bar input[type="date"] {
+  flex: 2;
+}
+
+/* Guests */
+.search-bar input[type="number"] {
+  flex: 0.8;
+}
+
+.search-bar button {
+  background: #ac2b2b;
+  color: #ffffff;
+  flex: 1;
+  min-width: 0;
+  border: none;
+  padding: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.search-bar button:hover {
+  background: #e9e8e8;
+  color:#16385a;
+  
+}
+
+@media (max-width: 768px) {
+  .search-bar {
+    flex-direction: column;
+    gap: 9px;
+    padding: 12px;
+  }
+
+  .search-bar input,
+  .search-bar button {
+    width: 100%;
+    box-sizing: border-box;
+    max-width: none;
+    flex: unset; 
+  }
+
+  .search-bar input[type="number"] {
+    width: 100%;
+  }
+
+  .search-bar button {
+    width: 100%;
+    padding: 10px 0;
+  }
+}

@@ -1,0 +1,22 @@
+.language-select {
+  padding: 0.5rem 0.75rem;
+  border: none;
+  border-radius: 0.4rem;
+  color: white;
+  font-weight: 520;
+  background-color: #a3b0ba22;
+  height: 35px;
+  outline: none;
+}
+
+.language-select:focus {
+  border-color: white;
+  background-color: #7a0000;
+  box-shadow: 0 0 0 2px #7a0000;
+}
+
+.language-select option {
+  background-color: #7a0000;
+  color: white;
+  font-weight: 500;
+}
