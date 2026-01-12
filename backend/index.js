@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
 
+const PORT = process.env.PORT || 3000;
+
 const userRouter = require('./routes/userRouter');
 const propertyRouter = require('./routes/propertyRouter');
 const bookingRouter = require('./routes/bookingRouter');
@@ -40,6 +42,6 @@ app.use(notFound);
 app.use(internalServerError);
 
 // Server
-app.listen(process.env.PORT, () => {
-  console.log(`Server running on port ${process.env.PORT}`);
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
