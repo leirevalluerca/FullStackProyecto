@@ -2,22 +2,40 @@ const Property = require('../models/propertyModel');
 const Booking = require('../models/bookingModel');
 const User = require('../models/userModel');
 
+const cloudinary = require('../config/cloudinary');
+
 // CREAR PROPIEDAD
 const createProperty = async (req, res, next) => {
+  
+    console.log('BODY:', req.body);
+console.log('FILES:', req.files?.length);
   try {
     // features viene como string
     if (req.body.features && typeof req.body.features === 'string') {
       req.body.features = JSON.parse(req.body.features);
     }
 
-    // obtener rutas de imágenes
-    const imagePaths = req.files
-      ? req.files.map(file => file.path)
-      : [];
+    let imageUrls = [];
+
+    if (req.files && req.files.length > 0) {
+      const uploadPromises = req.files.map(file => {
+        return new Promise((resolve, reject) => {
+          cloudinary.uploader.upload_stream(
+            { folder: 'properties' },
+            (error, result) => {
+              if (error) reject(error);
+              else resolve(result.secure_url);
+            }
+          ).end(file.buffer);
+        });
+      });
+
+      imageUrls = await Promise.all(uploadPromises);
+    }
 
     const property = await Property.create({
       ...req.body,
-      images: imagePaths,
+      images: imageUrls,
       owner: req.user._id
     });
 
@@ -30,7 +48,6 @@ const createProperty = async (req, res, next) => {
     next(error);
   }
 };
-
 
 // OBTENER TODOS LAS PROPERTIES
 const getAllProperties = async (req, res, next) => {

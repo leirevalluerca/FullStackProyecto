@@ -12,6 +12,12 @@ const internalServerError = require('./middlewares/500');
 
 dotenv.config();
 
+console.log('ENV TEST:', {
+  cloud: process.env.CLOUDINARY_CLOUD_NAME,
+  key: process.env.CLOUDINARY_API_KEY,
+  secret: process.env.CLOUDINARY_API_SECRET
+});
+
 console.log('PORT:', process.env.PORT);
 console.log(process.env.MONGO_URI ? 'Mongo URI OK' : 'Mongo URI MISSING');
 console.log(process.env.JWT_SECRET ? 'JWT OK' : 'JWT MISSING');

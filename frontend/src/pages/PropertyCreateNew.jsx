@@ -57,6 +57,7 @@ const PropertyCreateNew = () => {
     formData.append("pricePerNight", priceRef.current.value);
     formData.append("features", JSON.stringify(features));
 
+
     images.forEach((img) => formData.append("images", img)); // enviamos todos los archivos
 
     try {

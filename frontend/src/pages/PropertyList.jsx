@@ -94,7 +94,7 @@ const PropertiesList = () => {
               <img
                 src={
                   property.images?.length
-                    ? `${import.meta.env.VITE_BACKEND_URL}/${property.images[0]}`
+                    ? property.images[0]
                     : "/placeholder.jpg"
                 }
                 alt={property.title}
