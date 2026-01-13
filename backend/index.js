@@ -3,9 +3,6 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
 
-// PORT
-const PORT = process.env.PORT || 3000;
-
 const userRouter = require('./routes/userRouter');
 const propertyRouter = require('./routes/propertyRouter');
 const bookingRouter = require('./routes/bookingRouter');
@@ -36,15 +33,13 @@ app.use('/api/properties', propertyRouter);
 app.use('/api/bookings', bookingRouter);
 
 // Carpeta para subir fotos de las propiedades
-//app.use('/uploads', express.static('uploads'));
+app.use('/uploads', express.static('uploads'));
 
 // Error handling
 app.use(notFound);
 app.use(internalServerError);
 
 // Server
-/* app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-}); */
-
-module.exports = app;
+app.listen(process.env.PORT, () => {
+  console.log(`Server running on port ${process.env.PORT}`);
+});
