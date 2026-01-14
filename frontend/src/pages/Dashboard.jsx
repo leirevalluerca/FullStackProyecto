@@ -19,32 +19,37 @@ const Dashboard = () => {
   }
 
   return (
-    <div>
-      <h1>{t("dashboard")}</h1>
+    <div className="dashboard">
+      <div className="dashboard-content">
+        <h1>{t("dashboard")}</h1>
 
-      <p>{t("welcome")}, {user.username}</p>
+        <UserProfile user={user} />
 
-      <UserProfile user={user} />
-      <hr />
-      
-      <button onClick={logout}>{t("logout")}</button>
+        <button onClick={logout} className="logout-btn">
+          {t("logout")}
+        </button>
+      </div>
 
-      <nav>
-        <ul>
-          <li>
-            <Link to="/properties">{t("View")} {t("properties")}</Link>
-          </li>
-          <li>
-            <Link to="/dashboard/my-bookings">{t("Mys")} {t("bookings")}</Link>
-          </li>
-          <li>
-            <Link to="/dashboard/my-properties/new">{t("New")} {t("property")}</Link>
-          </li>
-          <Link to="/dashboard/my-properties"> {t("Mys")} {t("properties")} </Link>
-        </ul>
+      <nav className="dashboard-nav">
+        <Link to="/properties">
+          {t("View")} {t("properties")}
+        </Link>
+
+        <Link to="/dashboard/my-bookings">
+          {t("Mys")} {t("bookings")}
+        </Link>
+
+        <Link to="/dashboard/my-properties/new">
+          {t("New")} {t("property")}
+        </Link>
+
+        <Link to="/dashboard/my-properties">
+          {t("Mys")} {t("properties")}
+        </Link>
       </nav>
     </div>
   );
+
 };
 
 export default Dashboard;
