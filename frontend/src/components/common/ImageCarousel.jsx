@@ -25,7 +25,7 @@ const ImageCarousel = ({ images = [] }) => {
       prev === images.length - 1 ? 0 : prev + 1
     );
   };
-
+  console.log(images[currentIndex]);
   return (
     <div className="carousel">
       <button className="carousel-btn left" onClick={prevImage}>
@@ -33,7 +33,7 @@ const ImageCarousel = ({ images = [] }) => {
       </button>
 
       <img
-        src={`${import.meta.env.VITE_BACKEND_URL}/${images[currentIndex]}`}
+        src={images[currentIndex]}
         alt={`Property image ${currentIndex + 1}`}
         className="carousel-image"
       />

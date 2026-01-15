@@ -1,0 +1,102 @@
+.my-properties {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* CARD */
+.property-card {
+  display: flex;
+  gap: 12px;
+  border: 1px solid #7a000010;
+  background-color: #7a000010;
+  border-radius: 8px;
+  height: 250px;
+  padding: 0;
+  box-sizing: border-box;
+  align-items: stretch;
+}
+
+/* INFO */
+.property-info {
+  flex: 1;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  box-sizing: border-box;
+}
+
+.property-info h3,
+.property-info p {
+  margin: 0;
+}
+
+.property-info h3 {
+  font-size: 24px;
+  color: #7a0000;
+}
+
+.property-location {
+  font-size: 15px;
+  color: #555;
+}
+
+.property-price {
+  font-size: 18px;
+  color: #555;
+}
+
+/* ACTIONS */
+.property-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.property-actions a {
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 4px;
+  text-decoration: none;
+  background-color: #7a0000;
+  color: white;
+  font-weight: 500;
+}
+
+.property-actions a:hover {
+  background-color: #5a0000;
+}
+
+/* CAROUSEL DERECHA */
+.property-carousel-my-properties {
+  width: 400px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #7a000020;
+  background-color: #ffffff14;
+}
+
+.property-carousel-my-properties .carousel {
+  width: 100%;
+  height: 100%;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .property-card {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .property-carousel {
+    width: 100%;
+    height: 200px;
+  }
+}

@@ -35,7 +35,14 @@ const createBooking = async (req, res, next) => {
 const getMyBookings = async (req, res, next) => {
   try {
     const bookings = await Booking.find({ guest: req.user._id })
-      .populate('property', 'title location');
+      .populate({
+        path: 'property',
+        select: 'title location images owner',
+        populate: {
+          path: 'owner',
+          select: 'username'
+        }
+      });
 
     res.status(200).json(bookings);
   } catch (error) {

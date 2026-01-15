@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import ImageCarousel from "../components/common/ImageCarousel";
 import "./MyProperties.css";
 
 const MyProperties = () => {
@@ -51,35 +52,35 @@ const MyProperties = () => {
 
       {properties.map((property) => (
         <div key={property._id} className="property-card">
-          {property.images?.length > 0 && (
-            <img
-              src={property.images[0]}
-              alt={property.title}
-              className="property-image"
-            />
-          )}
-
+          {/* INFO IZQUIERDA */}
           <div className="property-info">
             <h3>{property.title}</h3>
 
-            <p>
-              {property.location.city}, {property.location.country}
+            <p className="property-location">
+              📌 {property.location.city}, {property.location.country}
             </p>
 
-            <p>{property.pricePerNight} € / noche</p>
+            <p className="property-price">
+              {property.pricePerNight} € / noche
+            </p>
 
             <div className="property-actions">
-              <Link to={`/properties/${property._id}`}>
-                Ver
-              </Link>
-
+              <Link to={`/properties/${property._id}`}>Ver</Link>
               <Link to={`/dashboard/my-properties/${property._id}/edit`}>
                 Editar
               </Link>
             </div>
           </div>
+
+          {/* CAROUSEL DERECHA */}
+          {property.images?.length > 0 && (
+            <div className="property-carousel-my-properties">
+              <ImageCarousel images={property.images} />
+            </div>
+          )}
         </div>
       ))}
+
     </div>
   );
 };

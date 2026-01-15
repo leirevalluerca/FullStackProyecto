@@ -76,7 +76,7 @@ const PropertyDetail = () => {
     <div className="property-detail">
       <div className="property-heading">
         <h1>{property.title}</h1>
-        <p>{property.location.address}, {property.location.city}, {property.location.country}</p>
+        <p>📌 {property.location.address}, {property.location.city}, {property.location.country}</p>
       </div>
 
       <div className="property-content">
@@ -102,7 +102,9 @@ const PropertyDetail = () => {
               onChange={(e) => setCheckOut(e.target.value)}
             />
           </div>
-          <p className="booking-info"> maxGuests: {property.maxGuests}</p>
+          <p className="booking-info"> Max. Guests: {property.maxGuests}</p>
+          <p className="booking-info"> Hosted by: {property.owner?.username}</p>
+          <p className="booking-info">Price per night: {property.pricePerNight}</p>
 
           {nights > 0 && (
             <p className="booking-info">
@@ -120,7 +122,15 @@ const PropertyDetail = () => {
           </button>
         </div>
 
+
       </div>
+      
+        <div className="property-description">
+          <p><strong>Features:</strong> {property.features.join(", ")}</p>
+          
+          <p><strong>Description:</strong> {property.description}</p>
+          
+        </div>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import SearchBar from "../components/common/SearchBar";
-
+import ImageCarousel from "../components/common/ImageCarousel";
 import { Link } from "react-router-dom";
 import "./PropertyList.css";
 
@@ -73,7 +73,7 @@ const PropertiesList = () => {
 
       <div className="properties-layout">
         {/* FILTER SIDEBAR */}
-        <aside className="filters">
+        <aside className="features">
           <h3>Features</h3>
           {AVAILABLE_FEATURES.map(feature => (
             <label key={feature} className="filter-item">
@@ -91,15 +91,9 @@ const PropertiesList = () => {
         <section className="properties-list">
           {properties.map(property => (
             <div className="property-card" key={property._id}>
-              <img
-                src={
-                  property.images?.length
-                    ? property.images[0]
-                    : "/placeholder.jpg"
-                }
-                alt={property.title}
-                className="property-image"
-              />
+              <div className="carrousel-proterties-list">
+                <ImageCarousel images={property.images} />
+              </div>
 
               <div className="property-info">
                 <h3 className="property-title">

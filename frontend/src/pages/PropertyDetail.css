@@ -11,11 +11,14 @@
   display: flex;
   gap: 2rem;
   margin-top: 1.5rem;
-  align-items: flex-start;
+  align-items: stretch;
 }
 
 .property-carousel {
   flex: 2;
+  border: 3px solid #7a0000;
+  border-radius: 20px;
+  overflow: hidden;
 }
 
 .booking-box {
@@ -27,6 +30,7 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  justify-content: space-between;
 }
 
 /* INPUTS EN FILA */
@@ -78,9 +82,15 @@
   cursor: not-allowed;
 }
 
+.property-description strong {
+  color: #7a0000;
+}
+
 @media (max-width: 768px) {
   .property-content {
     flex-direction: column;
+    padding: 1rem;
+    padding-bottom: 0;
   }
 
   .property-carousel {
@@ -107,4 +117,9 @@
   .booking-inputs input {
     width: 100%;
   }
+
+  .property-description {
+  padding-top: 0;
+  padding: 1.5rem;
+}
 }

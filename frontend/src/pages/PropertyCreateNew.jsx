@@ -84,38 +84,39 @@ const PropertyCreateNew = () => {
         <h2>Create new property</h2>
 
         <div className="form-group">
+          <input ref={titleRef} required placeholder=" " />
           <label>Title</label>
-          <input ref={titleRef} required />
         </div>
 
         <div className="form-group">
+          <textarea ref={descriptionRef} rows={4} required placeholder=" " />
           <label>Description</label>
-          <textarea ref={descriptionRef} rows={4} required />
         </div>
 
+
         <div className="form-group">
+          <input ref={addressRef} required placeholder=" " />
           <label>Address</label>
-          <input ref={addressRef} required />
         </div>
         
         <div className="form-group">
+          <input ref={countryRef} required placeholder=" " />
           <label>Country</label>
-          <input ref={countryRef} required />
         </div>
 
         <div className="form-group">
+          <input ref={cityRef} required placeholder=" " />
           <label>City</label>
-          <input ref={cityRef} required />
         </div>
 
         <div className="form-group">
+          <input ref={maxGuestRef} required placeholder=" " />
           <label>Max guests</label>
-          <input ref={maxGuestRef} type="number" required />
         </div>
 
         <div className="form-group">
+          <input ref={priceRef} required placeholder=" " />
           <label>Price per night (€)</label>
-          <input ref={priceRef} type="number" required />
         </div>
 
         <div className="features-section">
@@ -135,7 +136,7 @@ const PropertyCreateNew = () => {
         </div>
 
         <div className="form-group">
-          <label>Property Images</label>
+          <h4>Property Images</h4>
           <input
             type="file"
             multiple
