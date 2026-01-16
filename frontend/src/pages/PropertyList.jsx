@@ -76,7 +76,7 @@ const PropertiesList = () => {
       <div className="properties-layout">
         {/* FILTER SIDEBAR */}
         <aside className="features">
-          <h3>Features</h3>
+          <h3>{t("Features")}</h3>
           {AVAILABLE_FEATURES.map(feature => (
             <label key={feature} className="filter-item">
               <input

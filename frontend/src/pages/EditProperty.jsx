@@ -153,13 +153,13 @@ const EditProperty = () => {
   /* =====================
      RENDER
   ====================== */
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p>{t("Loading")} ...</p>;
   if (error) return <p className="error">{error}</p>;
   if (!property) return null;
 
   return (
     <div className="edit-property">
-      <h1>Edit property</h1>
+      <h1>{t("Edit")} {t("property")} </h1>
 
       <form className="edit-property-form" onSubmit={handleSubmit}>
         <div className="form-group">

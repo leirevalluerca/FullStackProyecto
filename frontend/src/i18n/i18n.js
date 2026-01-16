@@ -72,7 +72,8 @@ i18n.use(initReactI18next).init({
         Status: "Status", 
         noBookings: "You don't have bookings",
         loginBeforeBooking: "Login to continue with the booking",
-        iDontHaveAccount: "I don't have an account yet"
+        iDontHaveAccount: "I don't have an account yet",
+        createAccount: "Create Account"
 
       }
     },
@@ -143,7 +144,8 @@ i18n.use(initReactI18next).init({
         Status: "Estado", 
         noBookings: "No tienes reservas",
         loginBeforeBooking: "Inicia sesión para continuar con la reserva",
-        iDontHaveAccount: "No tengo cuenta todavía"
+        iDontHaveAccount: "No tengo cuenta todavía",
+        createAccount: "Crear Cuenta"
       }
     }
   },

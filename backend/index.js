@@ -38,8 +38,20 @@ app.use('/api/users', userRouter);
 app.use('/api/properties', propertyRouter);
 app.use('/api/bookings', bookingRouter);
 
+app.get('/', (req, res) => {
+  res.json({
+    status: 'OK',
+    message: 'API running',
+    endpoints: {
+      users: '/api/users',
+      properties: '/api/properties',
+      bookings: '/api/bookings'
+    }
+  });
+});
+
 // Carpeta para subir fotos de las propiedades
-app.use('/uploads', express.static('uploads'));
+//app.use('/uploads', express.static('uploads'));
 
 // Error handling
 app.use(notFound);
