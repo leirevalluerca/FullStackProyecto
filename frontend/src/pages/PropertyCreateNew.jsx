@@ -1,7 +1,9 @@
 import { useRef, useState } from "react";
 import "./PropertyCreateNew.css";
+import { useTranslation } from "react-i18next";
 
 const PropertyCreateNew = () => {
+  const { t } = useTranslation();
   const titleRef = useRef();
   const descriptionRef = useRef();
   const addressRef = useRef();
@@ -81,46 +83,46 @@ const PropertyCreateNew = () => {
   return (
     <div className="create-property-page">
       <form className="create-property-card" onSubmit={handleSubmit}>
-        <h2>Create new property</h2>
+        <h2>{t("Create")} {t("new")} {t("property")}</h2>
 
         <div className="form-group">
           <input ref={titleRef} required placeholder=" " />
-          <label>Title</label>
+          <label>{t("Name")}</label>
         </div>
 
         <div className="form-group">
           <textarea ref={descriptionRef} rows={4} required placeholder=" " />
-          <label>Description</label>
+          <label>{t("Description")}</label>
         </div>
 
 
         <div className="form-group">
           <input ref={addressRef} required placeholder=" " />
-          <label>Address</label>
+          <label>{t("Address")}</label>
         </div>
         
         <div className="form-group">
           <input ref={countryRef} required placeholder=" " />
-          <label>Country</label>
+          <label>{t("Country")}</label>
         </div>
 
         <div className="form-group">
           <input ref={cityRef} required placeholder=" " />
-          <label>City</label>
+          <label>{t("City")}</label>
         </div>
 
         <div className="form-group">
           <input ref={maxGuestRef} required placeholder=" " />
-          <label>Max guests</label>
+          <label>Max. {t("guest")}</label>
         </div>
 
         <div className="form-group">
           <input ref={priceRef} required placeholder=" " />
-          <label>Price per night (€)</label>
+          <label>{t("Price")} {t("per")} {t("night")} (€)</label>
         </div>
 
         <div className="features-section">
-          <h4>Features</h4>
+          <h4>{t("Features")}</h4>
           <div className="features-grid">
             {availableFeatures.map(f => (
               <label key={f} className="feature-item">
@@ -136,7 +138,7 @@ const PropertyCreateNew = () => {
         </div>
 
         <div className="form-group">
-          <h4>Property Images</h4>
+          <h4>{t("Images")}</h4>
           <input
             type="file"
             multiple
@@ -156,7 +158,7 @@ const PropertyCreateNew = () => {
         {error && <p className="error">{error}</p>}
 
         <button type="submit" className="submit-btn">
-          Create Property
+          {t("Create")} {t("property")}
         </button>
       </form>
     </div>

@@ -1,8 +1,10 @@
 import "./Register.css";
 import { useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
 
 const Register = () => {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const usernameRef = useRef();
     const nameRef = useRef();
@@ -58,7 +60,7 @@ const Register = () => {
                             required
                             placeholder=" "
                         />
-                        <label htmlFor="name">Name</label>
+                        <label htmlFor="name">{t("Name")}</label>
                     </div>
 
                     <div className="register-group">
@@ -69,7 +71,7 @@ const Register = () => {
                             required
                             placeholder=" "
                         />
-                        <label htmlFor="surname">Surname</label>
+                        <label htmlFor="surname">{t("Surname")}</label>
                     </div>
                     
                     <div className="register-group">
@@ -80,7 +82,7 @@ const Register = () => {
                             required
                             placeholder=" "
                         />
-                        <label htmlFor="username">Username</label>
+                        <label htmlFor="username">{t("Username")}</label>
                     </div>
 
                     <div className="register-group">
@@ -91,7 +93,7 @@ const Register = () => {
                             required
                             placeholder=" "
                         />
-                        <label htmlFor="birthdate">Birthdate</label>
+                        <label htmlFor="birthdate">{t("Birthdate")}</label>
                     </div>
 
                     <div className="register-group">
@@ -113,7 +115,7 @@ const Register = () => {
                             required
                             placeholder=" "
                         />
-                        <label htmlFor="password">Password</label>
+                        <label htmlFor="password">{t("Password")}</label>
                     </div>
 
                     {error && (
@@ -123,11 +125,11 @@ const Register = () => {
                     )}
 
                     <button type="submit" className="register-button">
-                        Register
+                        {t("register")}
                     </button>
                 </form>
 
-                <Link to="/login">I already have an account</Link>
+                <Link to="/login">{t("alreadyAccount")}</Link>
             </div>
         </div>
     )

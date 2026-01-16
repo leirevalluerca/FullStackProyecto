@@ -2,8 +2,10 @@ import "./Login.css";
 import { useRef, useState } from 'react';
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import { useTranslation } from "react-i18next";
 
 const Login = () => {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const location = useLocation();
     const redirectTo = location.state?.from || "/";
@@ -45,13 +47,9 @@ const Login = () => {
     return(
         <div className="login-page">
             <div className="login-container">
-                <h2>Login</h2>
+                <h2>{t("login")}</h2>
                 
-                {location.state?.from && (
-                <p className="login-info">
-                    Inicia sesión para continuar con la reserva
-                </p>
-                )}
+                {location.state?.from && ( <p className="login-info"> {t("loginBeforeBooking")} </p>)}
 
                 <form onSubmit={handleSubmit}>
                     <div className="login-group">
@@ -62,7 +60,7 @@ const Login = () => {
                             required
                             placeholder=" "
                         />
-                        <label htmlFor="username">Username</label>
+                        <label htmlFor="username">{t("Username")}</label>
                     </div>
 
                     <div className="login-group">
@@ -73,21 +71,17 @@ const Login = () => {
                             required
                             placeholder=" "
                         />
-                        <label htmlFor="password">Password</label>
+                        <label htmlFor="password">{t("Password")}</label>
                     </div>
 
-                    {error && (
-                        <div className="login-error">
-                            {error}
-                        </div>
-                    )}
+                    {error && (<div className="login-error">{error}</div>)}
 
                     <button type="submit" className="login-button">
-                        Login
+                        {t("login")}
                     </button>
                 </form>
 
-                <Link to="/register">I don't have an account yet.</Link>
+                <Link to="/register">{t("iDontHaveAccount")}.</Link>
             </div>
         </div>
     )

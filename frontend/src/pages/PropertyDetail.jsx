@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams  } from "react-router-dom";
 import ImageCarousel from "../components/common/ImageCarousel";
 import "./PropertyDetail.css";
+import { useTranslation } from "react-i18next";
 
 const PropertyDetail = () => {
+  const { t } = useTranslation();
   const { id } = useParams();
   const navigate = useNavigate();
   const [property, setProperty] = useState(null);
@@ -22,8 +24,8 @@ const PropertyDetail = () => {
       });
   }, [id]);
 
-  if (loading) return <p>Loading...</p>;
-  if (!property) return <p>Property not found</p>;
+  if (loading) return <p>{t("loading")}...</p>;
+  if (!property) return <p>{t("Property")} {t("not")} {t("found")}.</p>;
 
   const nights =
     checkIn && checkOut
@@ -102,13 +104,13 @@ const PropertyDetail = () => {
               onChange={(e) => setCheckOut(e.target.value)}
             />
           </div>
-          <p className="booking-info"> Max. Guests: {property.maxGuests}</p>
-          <p className="booking-info"> Hosted by: {property.owner?.username}</p>
-          <p className="booking-info">Price per night: {property.pricePerNight}</p>
+          <p className="booking-info"> Max. {t("guest")}: {property.maxGuests}</p>
+          <p className="booking-info"> {t("hostedBy")}: {property.owner?.username}</p>
+          <p className="booking-info">{t("Price")} {t("per")} {t("night")}: {property.pricePerNight} €</p>
 
           {nights > 0 && (
             <p className="booking-info">
-              Total: <strong>{totalPrice} €</strong> ({nights} noches)
+              Total: <strong>{totalPrice} €</strong> ({nights} {t("nights")})
             </p>
           )}
 
@@ -118,7 +120,7 @@ const PropertyDetail = () => {
             disabled={!checkIn || !checkOut}
             onClick={handleBooking}
           >
-            Reservar
+            {t("Book")}
           </button>
         </div>
 
@@ -126,9 +128,9 @@ const PropertyDetail = () => {
       </div>
       
         <div className="property-description">
-          <p><strong>Features:</strong> {property.features.join(", ")}</p>
+          <p><strong>{t("Features")}:</strong> {property.features.join(", ")}</p>
           
-          <p><strong>Description:</strong> {property.description}</p>
+          <p><strong>{t("Description")}:</strong> {property.description}</p>
           
         </div>
     </div>

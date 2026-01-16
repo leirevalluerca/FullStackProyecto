@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import ImageCarousel from "../components/common/ImageCarousel";
 import "./MyProperties.css";
+import { useTranslation } from "react-i18next";
 
 const MyProperties = () => {
   const navigate = useNavigate();
-
+  const { t } = useTranslation();
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -39,15 +40,15 @@ const MyProperties = () => {
       });
   }, [navigate]);
 
-  if (loading) return <p>Cargando propiedades...</p>;
+  if (loading) return <p>{t("loading")} {t("properties")}...</p>;
   if (error) return <p style={{ color: "red" }}>{error}</p>;
 
   return (
     <div className="my-properties">
-      <h1>Mis propiedades</h1>
+      <h1>{t("Mys")} {t("properties")}</h1>
 
       {properties.length === 0 && (
-        <p>No has creado ninguna propiedad todavía</p>
+        <p>{t("anyPropertyCreated")}</p>
       )}
 
       {properties.map((property) => (
@@ -61,13 +62,13 @@ const MyProperties = () => {
             </p>
 
             <p className="property-price">
-              {property.pricePerNight} € / noche
+              {property.pricePerNight} € / {t("night")}
             </p>
 
             <div className="property-actions">
-              <Link to={`/properties/${property._id}`}>Ver</Link>
+              <Link to={`/properties/${property._id}`}>{t("Watch")}</Link>
               <Link to={`/dashboard/my-properties/${property._id}/edit`}>
-                Editar
+                {t("Edit")}
               </Link>
             </div>
           </div>

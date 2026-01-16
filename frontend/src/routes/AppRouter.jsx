@@ -9,6 +9,7 @@ import PropertyDetail from "../pages/PropertyDetail";
 import PropertyCreateNew from "../pages/PropertyCreateNew";
 import MyBookings from "../pages/MyBookings";
 import MyProperties from "../pages/MyProperties";
+import EditProperty from "../pages/EditProperty";
 
 export const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/my-properties",
         element: <MyProperties />
+      },
+      {
+        path: "/dashboard/my-properties/:id/edit",
+        element: <EditProperty />
       }
     ]
   }

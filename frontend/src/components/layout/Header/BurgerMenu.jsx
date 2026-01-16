@@ -27,9 +27,14 @@ const BurgerMenu = ({ isOpen, closeMenu, user, logout }) => {
                     </Link>
                 </>
             ) : (
-                <button className="logout-btn" onClick={handleLogout}>
-                    {t("logout")}
-                </button>
+                <>
+                    <Link to="/dashboard" className="username-link" onClick={closeMenu}>
+                        {user.username}
+                    </Link>
+                    <button className="logout-btn" onClick={handleLogout}>
+                        {t("logout")}
+                    </button>
+                </>
             )}
         </div>
     );

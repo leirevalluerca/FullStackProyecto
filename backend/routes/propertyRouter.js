@@ -32,7 +32,7 @@ router.get('/my-properties', auth, getPropertiesByUserId);
 router.get('/:id', getPropertyById);
 
 // Protegido - actualizar propiedad
-router.put('/:id', auth, isHost, upload.array('images', 10), createPropertyValidation, validate, isOwner(Property), updateProperty);
+router.put('/:id', auth, isHost, upload.array('images'), isOwner(Property), updateProperty);
 
 // Protegido - borrar propiedad
 router.delete( '/:id', auth, isHost, isOwner(Property), deleteProperty);

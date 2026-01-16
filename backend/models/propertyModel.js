@@ -5,9 +5,7 @@ const propertySchema = new mongoose.Schema({
     description: { type: String, required: true },
     location: { address: { type: String, required: true },
                 city: { type: String, required: true },
-                country: { type: String, required: true },
-                lat: Number, //latitud  (posible mapa)
-                lng: Number // longitud (posible mapa)
+                country: { type: String, required: true }
     },
     pricePerNight: { type: Number, required: true },
     maxGuests: { type: Number, required: true },

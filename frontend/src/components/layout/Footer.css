@@ -1,0 +1,128 @@
+.footer {
+  background-color: #16385a;
+  color: #fcfafa;
+  padding: 2rem 2rem 1rem;
+  margin-top: auto;
+  border-top: 1px solid #e5e7eb;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.footer-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-brand {
+  align-items: flex-start;
+}
+
+.footer-logo {
+  width: 100px;
+  max-height: 60px;
+  object-fit: contain;
+  background: linear-gradient(180deg, #e4e5e8, #fcfafa);
+  padding: 10px 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.footer-title {
+  color: #fcfafa;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  border-bottom: 2px solid #7a0000;
+  padding-bottom: 0.5rem;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-links a {
+  color: #e4e5e8;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.footer-links a:hover {
+  color: #fcfafa;
+  background-color: #7a0000;
+  padding: 0.3rem 0.6rem;
+  border-radius: 0.4rem;
+}
+
+.footer-bottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(228, 229, 232, 0.2);
+  text-align: center;
+}
+
+.footer-bottom p {
+  color: #e4e5e8;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .footer {
+    padding: 1.5rem 1rem 1rem;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+  }
+
+  .footer-brand {
+    align-items: center;
+  }
+
+  .footer-section {
+    align-items: center;
+  }
+
+  .footer-logo {
+    width: 80px;
+  }
+
+  .footer-title {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-logo {
+    width: 70px;
+    max-height: 50px;
+  }
+
+  .footer-links a {
+    font-size: 0.85rem;
+  }
+
+  .footer-bottom p {
+    font-size: 0.8rem;
+  }
+}

@@ -3,6 +3,7 @@ import SearchBar from "../components/common/SearchBar";
 import ImageCarousel from "../components/common/ImageCarousel";
 import { Link } from "react-router-dom";
 import "./PropertyList.css";
+import { useTranslation } from "react-i18next";
 
 const AVAILABLE_FEATURES = [
     "wifi",
@@ -20,6 +21,7 @@ const AVAILABLE_FEATURES = [
 ];
 
 const PropertiesList = () => {
+  const { t } = useTranslation();
   const [properties, setProperties] = useState([]);
   const [selectedFeatures, setSelectedFeatures] = useState([]);
   const [searchParams, setSearchParams] = useState(null);
@@ -105,13 +107,13 @@ const PropertiesList = () => {
                   {property.location.city}, {property.location.country}
                 </p>
                 <p className="property-owner">
-                  Hosted by <strong>{property.owner?.username}</strong>
+                  {t("hostedBy")} <strong>{property.owner?.username}</strong>
                 </p>
               </div>
 
               <div className="property-price">
                 <span>{property.pricePerNight} €</span>
-                <small>/ night</small>
+                <small>/ {t("night")}</small>
               </div>
             </div>
           ))}

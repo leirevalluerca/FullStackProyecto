@@ -25,7 +25,7 @@ const ImageCarousel = ({ images = [] }) => {
       prev === images.length - 1 ? 0 : prev + 1
     );
   };
-  console.log(images[currentIndex]);
+  
   return (
     <div className="carousel">
       <button className="carousel-btn left" onClick={prevImage}>

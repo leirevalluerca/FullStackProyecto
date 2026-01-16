@@ -3,11 +3,12 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import ImageCarousel from "../components/common/ImageCarousel";
 import "./MyBookings.css";
+import { useTranslation } from "react-i18next";
 
 const MyBookings = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
-
+  const { t } = useTranslation();
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -68,14 +69,14 @@ const MyBookings = () => {
     }
   };
 
-  if (loading) return <p>Cargando reservas...</p>;
+  if (loading) return <p>{t("Loading")} {t("bookings")}...</p>;
   if (error) return <p style={{ color: "red" }}>{error}</p>;
 
   return (
     <div className="my-bookings">
-      <h1>Mis reservas</h1>
+      <h1>{t("Mys")} {t("bookings")}</h1>
 
-      {bookings.length === 0 && <p>No tienes reservas</p>}
+      {bookings.length === 0 && <p>{t("noBookings")}.</p>}
 
       {bookings.map((booking) => (
         <div key={booking._id} className="mybooking-card">
@@ -96,17 +97,17 @@ const MyBookings = () => {
             </p>
 
             <p className="mybooking-owner">
-              Hosted by <strong>{booking.property.owner?.username}</strong>
+              {t("hostedBy")} <strong>{booking.property.owner?.username}</strong>
             </p>
 
 
             <p className="mybooking-price">
-              Total: <strong>{booking.totalPrice} €</strong>
+              Total: <strong>{booking.totalPrice} € / {t("night")}</strong>
             </p>
 
             <div className="mybooking-status-row">
               <span className={`mybooking-status ${booking.status}`}>
-                Estado: {booking.status}
+                {t("Status")}: {booking.status}
               </span>
 
               {booking.status !== "cancelled" && (
@@ -114,7 +115,7 @@ const MyBookings = () => {
                   className="mybooking-cancel"
                   onClick={() => handleCancel(booking._id)}
                 >
-                  Cancelar reserva
+                  {t("Cancel")} {t("booking")}
                 </button>
               )}
             </div>

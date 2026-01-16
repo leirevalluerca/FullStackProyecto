@@ -132,14 +132,31 @@ const getPropertiesByUserId = async (req, res, next) => {
 };
 
 // EDITAR UNA PROPERTY
-const updateProperty = async (req, res, next) => {
+const updateProperty = async (req, res) => {
   try {
-    Object.assign(req.resource, req.body);
-    await req.resource.save();
+    const property = await Property.findById(req.params.id);
+    if (!property) return res.status(404).json({ message: "Property not found" });
 
-    res.status(200).json(req.resource);
-  } catch (error) {
-    next(error);
+    // Solo actualizamos los campos permitidos
+    const { title, description, pricePerNight, maxGuests, features } = req.body;
+
+    property.title = title ?? property.title;
+    property.description = description ?? property.description;
+    property.pricePerNight = pricePerNight ?? property.pricePerNight;
+    property.maxGuests = maxGuests ?? property.maxGuests;
+    property.features = features ? JSON.parse(features) : property.features;
+
+    // Si hay imágenes nuevas, agregarlas
+    if (req.files && req.files.length > 0) {
+      const newImages = req.files.map(file => file.path); // o url de Cloudinary
+      property.images.push(...newImages);
+    }
+
+    await property.save();
+    res.json(property);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
   }
 };
 
@@ -162,13 +179,13 @@ const deleteProperty = async (req, res, next) => {
     req.resource.isActive = false;
     await req.resource.save();
 
-    // Comprobar si el usuario aún tiene propiedades activas
+    // Comprobar si el usuario tiene propiedades activas
     const remainingProperties = await Property.countDocuments({
       owner: req.user._id,
       isActive: true
     });
 
-    // Si ya no tiene ninguna → dejar de ser host
+    // Si ya no tiene ninguna, deja de ser host
     if (remainingProperties === 0) {
       await User.findByIdAndUpdate(req.user._id, { isHost: false });
     }
