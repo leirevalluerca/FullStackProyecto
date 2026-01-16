@@ -26,9 +26,9 @@ console.log(process.env.JWT_SECRET ? 'JWT OK' : 'JWT MISSING');
 const app = express();
 
 // Database
-connectDB()
+/* connectDB()
   .then(() => console.log('Mongo Connected'))
-  .catch(err => console.error('MongoDB connection error:', err));
+  .catch(err => console.error('MongoDB connection error:', err)); */
 
 // Global Middlewares
 app.use(cors());
