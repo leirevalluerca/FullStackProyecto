@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const connectDB = require('./config/db');
 const cors = require('cors');
 const dotenv = require('dotenv');
 
@@ -25,7 +26,7 @@ console.log(process.env.JWT_SECRET ? 'JWT OK' : 'JWT MISSING');
 const app = express();
 
 // Database
-mongoose.connect(process.env.MONGO_URI)
+connectDB()
   .then(() => console.log('Mongo Connected'))
   .catch(err => console.error('MongoDB connection error:', err));
 
