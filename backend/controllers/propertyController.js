@@ -129,9 +129,10 @@ const getPropertiesByUserId = async (req, res, next) => {
 const updateProperty = async (req, res) => {
   try {
     const property = await Property.findById(req.params.id);
-    if (!property) return res.status(404).json({ message: "Property not found" });
+    if (!property) {
+      return res.status(404).json({ message: "Property not found" });
+    }
 
-    // Actualizar los campos permitidos
     const { title, description, pricePerNight, maxGuests, features } = req.body;
 
     property.title = title ?? property.title;
@@ -140,12 +141,30 @@ const updateProperty = async (req, res) => {
     property.maxGuests = maxGuests ?? property.maxGuests;
     property.features = features ? JSON.parse(features) : property.features;
 
-    // Añadir imágenes nuevas
+    // Subimos solo archivos válidos
     if (req.files && req.files.length > 0) {
-      const newImages = req.files.map(file => file.path); // o url de Cloudinary
-      property.images.push(...newImages);
-    }
+      const validFiles = req.files.filter(
+        file => file && file.buffer && file.buffer.length > 0
+      );
 
+      if (validFiles.length > 0) {
+        const uploadPromises = validFiles.map(file =>
+          new Promise((resolve, reject) => {
+            cloudinary.uploader.upload_stream(
+              { folder: "properties" },
+              (error, result) => {
+                if (error) reject(error);
+                else resolve(result.secure_url);
+              }
+            ).end(file.buffer);
+          })
+        );
+
+        const uploadedUrls = await Promise.all(uploadPromises);
+        property.images.push(...uploadedUrls);
+      }
+    }
+    console.log("IMAGES BEFORE SAVE:", property.images);
     await property.save();
     res.json(property);
   } catch (err) {

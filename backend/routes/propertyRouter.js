@@ -17,7 +17,7 @@ router.get('/', withDB, getAllProperties);
 router.post('/', withDB, auth, upload.array('images', 10), createPropertyValidation, validate, createProperty);
 router.get('/my-properties', withDB, auth, getPropertiesByUserId);
 router.get('/:id', withDB, getPropertyById);
-router.put('/:id', withDB, auth, isHost, upload.array('images',10), isOwner(Property), updateProperty);
+router.put('/:id', withDB, auth, isHost, upload.array('images'), isOwner(Property), updateProperty);
 router.delete( '/:id', withDB, auth, isHost, isOwner(Property), deleteProperty);
 
 module.exports = router;

@@ -78,59 +78,68 @@ const MyBookings = () => {
 
       {bookings.length === 0 && <p>{t("noBookings")}.</p>}
 
-      {bookings.map((booking) => (
-        <div key={booking._id} className="mybooking-card">
-          {/* INFO IZQUIERDA */}
-          <div className="mybooking-info">
-            <h3 className="mybooking-title">
-              {booking.property.title}
-            </h3>
+      {bookings.map((booking) => {
+        const property = booking.property;
 
-            <p className="mybooking-location">
-              📌 {booking.property.location.city},{" "}
-              {booking.property.location.country}
-            </p>
+        return (
+          <div key={booking._id} className="mybooking-card">
+            {/* INFO IZQUIERDA */}
+            <div className="mybooking-info">
+              <h3 className="mybooking-title">
+                {property?.title || "🏠 Propiedad eliminada"}
+              </h3>
 
-            <p className="mybooking-dates">
-              {new Date(booking.checkIn).toLocaleDateString()} –{" "}
-              {new Date(booking.checkOut).toLocaleDateString()}
-            </p>
+              {property ? (
+                <>
+                  <p className="mybooking-location">
+                    📌 {property.location.city}, {property.location.country}
+                  </p>
 
-            <p className="mybooking-owner">
-              {t("hostedBy")} <strong>{booking.property.owner?.username}</strong>
-            </p>
-
-
-            <p className="mybooking-price">
-              Total: <strong>{booking.totalPrice} € / {t("night")}</strong>
-            </p>
-
-            <div className="mybooking-status-row">
-              <span className={`mybooking-status ${booking.status}`}>
-                {t("Status")}: {booking.status}
-              </span>
-
-              {booking.status !== "cancelled" && (
-                <button
-                  className="mybooking-cancel"
-                  onClick={() => handleCancel(booking._id)}
-                >
-                  {t("Cancel")} {t("booking")}
-                </button>
+                  <p className="mybooking-owner">
+                    {t("hostedBy")}{" "}
+                    <strong>{property.owner?.username}</strong>
+                  </p>
+                </>
+              ) : (
+                <p className="mybooking-warning">
+                  ⚠️ Esta propiedad ya no existe
+                </p>
               )}
+
+              <p className="mybooking-dates">
+                {new Date(booking.checkIn).toLocaleDateString()} –{" "}
+                {new Date(booking.checkOut).toLocaleDateString()}
+              </p>
+
+              <p className="mybooking-price">
+                Total: <strong>{booking.totalPrice} €</strong>
+              </p>
+
+              <div className="mybooking-status-row">
+                <span className={`mybooking-status ${booking.status}`}>
+                  {t("Status")}: {booking.status}
+                </span>
+
+                {booking.status !== "cancelled" && (
+                  <button
+                    className="mybooking-cancel"
+                    onClick={() => handleCancel(booking._id)}
+                  >
+                    {t("Cancel")} {t("booking")}
+                  </button>
+                )}
+              </div>
             </div>
 
+            {/* IMAGEN DERECHA */}
+            {property?.images?.length > 0 && (
+              <div className="mybooking-carousel">
+                <ImageCarousel images={property.images} />
+              </div>
+            )}
           </div>
-
-          {/* IMAGEN DERECHA (solo si hay imágenes) */}
-          {booking.property.images?.length > 0 && (
-            <div className="mybooking-carousel">
-              <ImageCarousel images={booking.property.images} />
-            </div>
-          )}
-        </div>
-      ))}
-
+        );
+      })}
     </div>
   );
 };
