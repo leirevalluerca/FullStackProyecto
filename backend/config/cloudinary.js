@@ -1,3 +1,4 @@
+// Configuración Cloudinary para la gestión de imágenes
 require('dotenv').config();
 
 const cloudinary = require('cloudinary').v2;
@@ -8,4 +9,5 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+// Exportación (para poder usar en otros módulos)
 module.exports = cloudinary;

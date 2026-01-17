@@ -6,14 +6,14 @@ const createBooking = async (req, res, next) => {
   try {
     const { propertyId, checkIn, checkOut } = req.body;
 
+    // Verificar que el alojamiento existe
     const property = await Property.findById(propertyId);
     if (!property) {
       return res.status(404).json({ message: 'Alojamiento no encontrado' });
     }
 
-    const days =
-      (new Date(checkOut) - new Date(checkIn)) / (1000 * 60 * 60 * 24);
-
+    // Calculo de número de días y precio total
+    const days = (new Date(checkOut) - new Date(checkIn)) / (1000 * 60 * 60 * 24);
     const totalPrice = days * property.pricePerNight;
 
     const booking = await Booking.create({ 
@@ -59,6 +59,7 @@ const cancelBooking = async (req, res, next) => {
       return res.status(404).json({ message: 'Reserva no encontrada' });
     }
 
+    // Verificación de que la reserva sea del usuario
     if (booking.guest.toString() !== req.user._id.toString()) {
       return res.status(403).json({ message: 'No autorizado' });
     }

@@ -13,6 +13,7 @@ const internalServerError = require('./middlewares/500');
 
 dotenv.config();
 
+/* // Logs para verificación
 console.log('ENV TEST:', {
   cloud: process.env.CLOUDINARY_CLOUD_NAME,
   key: process.env.CLOUDINARY_API_KEY,
@@ -21,14 +22,9 @@ console.log('ENV TEST:', {
 
 console.log('PORT:', process.env.PORT);
 console.log(process.env.MONGO_URI ? 'Mongo URI OK' : 'Mongo URI MISSING');
-console.log(process.env.JWT_SECRET ? 'JWT OK' : 'JWT MISSING');
+console.log(process.env.JWT_SECRET ? 'JWT OK' : 'JWT MISSING'); */
 
 const app = express();
-
-// Database
-/* connectDB()
-  .then(() => console.log('Mongo Connected'))
-  .catch(err => console.error('MongoDB connection error:', err)); */
 
 // Global Middlewares
 app.use(cors());
@@ -51,18 +47,11 @@ app.get('/', (req, res) => {
   });
 });
 
-// Carpeta para subir fotos de las propiedades
-//app.use('/uploads', express.static('uploads'));
-
 // Error handling
 app.use(notFound);
 app.use(internalServerError);
 
-// Server
-/* app.listen(process.env.PORT, () => {
-  console.log(`Server running on port ${process.env.PORT}`);
-});
- */
+// Inicia el servidor solo en desarrollo (Vercel gestiona esto en producción)
 if (process.env.NODE_ENV !== 'production') {
   const PORT = process.env.PORT || 3000;
   app.listen(PORT, () => {

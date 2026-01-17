@@ -17,6 +17,7 @@ const register = async (req, res, next) => {
       });
     }
 
+    // Encriptación de contraseña
     const hashedPassword = await bcrypt.hash(password, 10);
 
     await User.create({ username, name, surname, birthdate, email, password: hashedPassword });
@@ -32,21 +33,20 @@ const login = async (req, res, next) => {
   try {
     const { username, password } = req.body;
 
+    // Busqueda del usuario incluyendo la contraseña
     const user = await User.findOne({ username }).select('+password');
     if (!user) {
       return res.status(400).json({ message: 'Credenciales inválidas' });
     }
 
+    // Mirar si la contraseña y usuario hacen match
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ message: 'Credenciales inválidas' });
     }
 
-    const token = jwt.sign(
-      { userId: user._id },
-      process.env.JWT_SECRET,
-      { expiresIn: '1h' }
-    );
+    // Generamos el token pra que expire en 1 hora
+    const token = jwt.sign( { userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
     res.status(200).json({ token });
   } catch (error) {
@@ -54,6 +54,7 @@ const login = async (req, res, next) => {
   }
 };
 
+// INFO DEL USUARIO LOGGEADO
 const me = (req, res) => {
   res.status(200).json(req.user);
 };

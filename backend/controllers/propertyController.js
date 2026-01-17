@@ -10,13 +10,14 @@ const createProperty = async (req, res, next) => {
     console.log('BODY:', req.body);
 console.log('FILES:', req.files?.length);
   try {
-    // features viene como string
+    // Features viene como string
     if (req.body.features && typeof req.body.features === 'string') {
       req.body.features = JSON.parse(req.body.features);
     }
 
     let imageUrls = [];
 
+    // Subir las imágenes a Cloudinary
     if (req.files && req.files.length > 0) {
       const uploadPromises = req.files.map(file => {
         return new Promise((resolve, reject) => {
@@ -39,6 +40,7 @@ console.log('FILES:', req.files?.length);
       owner: req.user._id
     });
 
+    // Marcar al usuario como host si es su primera propiedad
     if (!req.user.isHost) {
       await User.findByIdAndUpdate(req.user._id, { isHost: true });
     }
@@ -51,16 +53,10 @@ console.log('FILES:', req.files?.length);
 
 // OBTENER TODOS LAS PROPERTIES
 const getAllProperties = async (req, res, next) => {
-  const {
-    checkIn,
-    checkOut,
-    city,
-    maxGuests,
-    features
-  } = req.query;
+  const { checkIn, checkOut, city, maxGuests, features } = req.query;
 
   try {
-    // Filtro ACTIVO
+    // Filtro para solo propiedades Activas
     const query = { isActive: true };
 
     // Filtro por ciudad
@@ -68,12 +64,12 @@ const getAllProperties = async (req, res, next) => {
       query['location.city'] = new RegExp(city, 'i');
     }
 
-    // Filtro por huéspedes
+    // Filtro huéspedes
     if (maxGuests) {
       query.maxGuests = { $gte: Number(maxGuests) };
     }
 
-    // Filtro por features (debe tener TODAS)
+    // Filtro por features
     if (features) {
       const featuresArray = features.split(',');
       query.features = { $all: featuresArray };
@@ -90,9 +86,7 @@ const getAllProperties = async (req, res, next) => {
         checkOut: { $gt: new Date(checkIn) }
       });
 
-      const bookedPropertyIds = bookings.map(b =>
-        b.property.toString()
-      );
+      const bookedPropertyIds = bookings.map(b => b.property.toString());
 
       properties = properties.filter(
         p => !bookedPropertyIds.includes(p._id.toString())
@@ -137,7 +131,7 @@ const updateProperty = async (req, res) => {
     const property = await Property.findById(req.params.id);
     if (!property) return res.status(404).json({ message: "Property not found" });
 
-    // Solo actualizamos los campos permitidos
+    // Actualizar los campos permitidos
     const { title, description, pricePerNight, maxGuests, features } = req.body;
 
     property.title = title ?? property.title;
@@ -146,7 +140,7 @@ const updateProperty = async (req, res) => {
     property.maxGuests = maxGuests ?? property.maxGuests;
     property.features = features ? JSON.parse(features) : property.features;
 
-    // Si hay imágenes nuevas, agregarlas
+    // Añadir imágenes nuevas
     if (req.files && req.files.length > 0) {
       const newImages = req.files.map(file => file.path); // o url de Cloudinary
       property.images.push(...newImages);
@@ -163,7 +157,7 @@ const updateProperty = async (req, res) => {
 // ELIMINAR UNA PROPERTY
 const deleteProperty = async (req, res, next) => {
   try {
-    // Comprobar si existen reservas activas para esta propiedad
+    // Comprobación de reservas activas
     const activeBookings = await Booking.countDocuments({
       property: req.resource._id,
       status: { $ne: 'cancelled' }
@@ -185,7 +179,7 @@ const deleteProperty = async (req, res, next) => {
       isActive: true
     });
 
-    // Si ya no tiene ninguna, deja de ser host
+    // Si ya no tiene ninguna property deja de ser host
     if (remainingProperties === 0) {
       await User.findByIdAndUpdate(req.user._id, { isHost: false });
     }
