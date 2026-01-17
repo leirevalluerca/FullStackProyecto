@@ -16,7 +16,7 @@ const PropertyDetail = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/properties/${id}`)
+    fetch(`${import.meta.env.VITE_API_URL}/api/properties/${id}`)
       .then(res => res.json())
       .then(data => {
         setProperty(data);
@@ -45,7 +45,7 @@ const PropertyDetail = () => {
     }
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/bookings`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/bookings`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

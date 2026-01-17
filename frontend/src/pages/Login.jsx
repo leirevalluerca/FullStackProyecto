@@ -19,7 +19,7 @@ const Login = () => {
         e.preventDefault();
         setError('');
 
-        fetch(`${import.meta.env.VITE_API_URL}/users/login`, {
+        fetch(`${import.meta.env.VITE_API_URL}/api/users/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

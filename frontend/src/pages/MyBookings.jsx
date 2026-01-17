@@ -21,7 +21,7 @@ const MyBookings = () => {
       return;
     }
 
-    fetch(`${import.meta.env.VITE_API_URL}/bookings/my-bookings`, {
+    fetch(`${import.meta.env.VITE_API_URL}/api/bookings/my-bookings`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -44,7 +44,7 @@ const MyBookings = () => {
 
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/bookings/${bookingId}`,
+        `${import.meta.env.VITE_API_URL}/api/bookings/${bookingId}`,
         {
           method: "DELETE",
           headers: {

@@ -31,7 +31,7 @@ const PropertiesList = () => {
   };
 
   useEffect(() => {
-    let url = `${import.meta.env.VITE_API_URL}/properties`;
+    let url = `${import.meta.env.VITE_API_URL}/api/properties`;
     const query = new URLSearchParams();
 
     if (searchParams?.city) {

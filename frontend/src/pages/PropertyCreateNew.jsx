@@ -63,7 +63,7 @@ const PropertyCreateNew = () => {
     images.forEach((img) => formData.append("images", img)); // enviamos todos los archivos
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/properties`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/properties`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

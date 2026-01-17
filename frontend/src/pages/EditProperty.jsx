@@ -39,7 +39,7 @@ const EditProperty = () => {
       return;
     }
 
-    fetch(`${import.meta.env.VITE_API_URL}/properties/${id}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/api/properties/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -106,7 +106,7 @@ const EditProperty = () => {
 
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/properties/${id}`,
+        `${import.meta.env.VITE_API_URL}/api/properties/${id}`,
         {
           method: "PUT",
           headers: {
@@ -134,7 +134,7 @@ const EditProperty = () => {
 
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/properties/${id}`,
+        `${import.meta.env.VITE_API_URL}/api/properties/${id}`,
         {
           method: "DELETE",
           headers: {

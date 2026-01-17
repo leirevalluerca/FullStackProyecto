@@ -19,7 +19,7 @@ const MyProperties = () => {
       return;
     }
 
-    fetch(`${import.meta.env.VITE_API_URL}/properties/my-properties`, {
+    fetch(`${import.meta.env.VITE_API_URL}/api/properties/my-properties`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
