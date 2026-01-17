@@ -43,8 +43,10 @@ const getMyBookings = async (req, res, next) => {
           select: 'username'
         }
       });
+    
+    const validBookings = bookings.filter(b => b.property);
 
-    res.status(200).json(bookings);
+    res.status(200).json(validBookings);
   } catch (error) {
     next(error);
   }
