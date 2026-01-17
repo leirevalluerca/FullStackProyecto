@@ -43,11 +43,12 @@
     font-size: 1rem;
     background: transparent;
     resize: none;
+    font-family: inherit;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
-    outline: none;
+    outline: none;/*  */
     border-color: #1b2f6a;
 }
 

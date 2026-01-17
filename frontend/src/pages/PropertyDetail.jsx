@@ -66,9 +66,8 @@ const PropertyDetail = () => {
         return;
       }
 
-      alert("Reserva confirmada!");
-      setCheckIn("");
-      setCheckOut("");
+      navigate("/dashboard/my-bookings");
+
     } catch (err) {
       setError("Error de conexión");
     }

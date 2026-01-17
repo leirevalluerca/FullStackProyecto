@@ -86,7 +86,7 @@ const MyBookings = () => {
             {/* INFO IZQUIERDA */}
             <div className="mybooking-info">
               <h3 className="mybooking-title">
-                {property?.title || "🏠 Propiedad eliminada"}
+                {property?.title || "Propiedad eliminada"}
               </h3>
 
               {property ? (
@@ -102,7 +102,7 @@ const MyBookings = () => {
                 </>
               ) : (
                 <p className="mybooking-warning">
-                  ⚠️ Esta propiedad ya no existe
+                  Esta propiedad ya no existe
                 </p>
               )}
 

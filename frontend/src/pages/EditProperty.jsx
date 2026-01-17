@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import "./EditProperty.css";
+import { usePropertyFeatures } from "../hooks/usePropertyFeatures";
+import { usePropertyImages } from "../hooks/usePropertyImages";
+import { usePropertySubmit } from "../hooks/usePropertySubmit";
 
 const EditProperty = () => {
   const { t } = useTranslation();
@@ -10,29 +13,27 @@ const EditProperty = () => {
   const token = localStorage.getItem("token");
 
   const [property, setProperty] = useState(null);
-  const [features, setFeatures] = useState([]);
-  const [newImages, setNewImages] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [loadError, setLoadError] = useState("");
 
-  const availableFeatures = [
-    "terraza",
-    "baño privado",
-    "piscina",
-    "desayuno incluido",
-    "aire acondicionado",
-    "calefacción",
-    "wifi",
-    "parking",
-    "vista al mar",
-    "mascotas permitidas",
-    "televisión",
-    "servicio de limpieza",
-  ];
+  const {
+    features,
+    setFeatures,
+    availableFeatures,
+    handleFeatureChange,
+  } = usePropertyFeatures();
 
-  /* =====================
-     LOAD PROPERTY
-  ====================== */
+  const {
+    images: newImages,
+    handleImageChange,
+    removeImage,
+  } = usePropertyImages();
+
+  const { submit, error } = usePropertySubmit({
+    url: `${import.meta.env.VITE_API_URL}/api/properties/${id}`,
+    method: "PUT",
+  });
+
   useEffect(() => {
     if (!token) {
       navigate("/login");
@@ -54,14 +55,11 @@ const EditProperty = () => {
         setLoading(false);
       })
       .catch(() => {
-        setError("Error loading property");
+        setLoadError("Error loading property");
         setLoading(false);
       });
-  }, [id, navigate, token]);
+  }, [id, navigate, token, setFeatures]);
 
-  /* =====================
-     HANDLERS
-  ====================== */
   const handleChange = (e) => {
     setProperty({
       ...property,
@@ -69,68 +67,23 @@ const EditProperty = () => {
     });
   };
 
-  const handleFeatureChange = (e) => {
-    const { value, checked } = e.target;
-    setFeatures(prev =>
-      checked ? [...prev, value] : prev.filter(f => f !== value)
-    );
-  };
-
-  const handleImageChange = (e) => {
-    const files = Array.from(e.target.files);
-    setNewImages(prev => [...prev, ...files]);
-  };
-
-  const removeNewImage = (index) => {
-    setNewImages(prev => prev.filter((_, i) => i !== index));
-  };
-
-  /* =====================
-     SUBMIT
-  ====================== */
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setError("");
 
     const formData = new FormData();
-
     formData.append("title", property.title);
     formData.append("description", property.description);
     formData.append("pricePerNight", property.pricePerNight);
     formData.append("maxGuests", property.maxGuests);
     formData.append("features", JSON.stringify(features));
 
-    newImages.forEach(img => {
-      formData.append("images", img);
-    });
+    newImages.forEach(img => formData.append("images", img));
 
-    try {
-      const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/properties/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          body: formData,
-        }
-      );
-
-      if (!res.ok) throw new Error();
-      navigate("/dashboard/my-properties");
-    } catch {
-      setError("Error updating property");
-    }
+    submit(formData);
   };
 
-  /* =====================
-     DELETE PROPERTY
-  ====================== */
   const handleDelete = async () => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this property?"
-    );
-    if (!confirmDelete) return;
+    if (!window.confirm("Are you sure you want to delete this property?")) return;
 
     try {
       const res = await fetch(
@@ -150,16 +103,13 @@ const EditProperty = () => {
     }
   };
 
-  /* =====================
-     RENDER
-  ====================== */
-  if (loading) return <p>{t("Loading")} ...</p>;
-  if (error) return <p className="error">{error}</p>;
+  if (loading) return <p>{t("Loading")}...</p>;
+  if (loadError) return <p className="error">{loadError}</p>;
   if (!property) return null;
 
   return (
     <div className="edit-property">
-      <h1>{t("Edit")} {t("property")} </h1>
+      <h1>{t("Edit")} {t("property")}</h1>
 
       <form className="edit-property-form" onSubmit={handleSubmit}>
         <div className="form-group">
@@ -170,7 +120,7 @@ const EditProperty = () => {
             required
             placeholder=" "
           />
-          <label> {t("Name")} </label>
+          <label>{t("Name")}</label>
         </div>
 
         <div className="form-group">
@@ -182,7 +132,7 @@ const EditProperty = () => {
             required
             placeholder=" "
           />
-          <label> {t("Description")} </label>
+          <label>{t("Description")}</label>
         </div>
 
         <div className="form-group">
@@ -204,7 +154,7 @@ const EditProperty = () => {
             required
             placeholder=" "
           />
-          <label> {t("Price")} {t("per")} {t("night")} (€)</label>
+          <label>{t("Price")} {t("per")} {t("night")} (€)</label>
         </div>
 
         <div className="features-section">
@@ -224,7 +174,7 @@ const EditProperty = () => {
           </div>
         </div>
 
-        <h4> {t("CurrentImages")} </h4>
+        <h4>{t("CurrentImages")}</h4>
         <div className="images-preview">
           {property.images.map((img, idx) => (
             <div key={idx} className="image-thumb">
@@ -233,7 +183,7 @@ const EditProperty = () => {
           ))}
         </div>
 
-        <h4> {t("Add")} {t("more")} {t("images")} </h4>
+        <h4>{t("Add")} {t("more")} {t("images")}</h4>
         <input
           type="file"
           multiple
@@ -245,9 +195,7 @@ const EditProperty = () => {
           {newImages.map((img, idx) => (
             <div key={idx} className="image-thumb">
               <img src={URL.createObjectURL(img)} alt={`new-${idx}`} />
-              <button type="button" onClick={() => removeNewImage(idx)}>
-                ✕
-              </button>
+              <button type="button" onClick={() => removeImage(idx)}>✕</button>
             </div>
           ))}
         </div>
@@ -255,12 +203,12 @@ const EditProperty = () => {
         {error && <p className="error">{error}</p>}
 
         <button type="submit" className="submit-btn">
-            {t("Save")} {t("changes")} 
+          {t("Save")} {t("changes")}
         </button>
       </form>
 
       <button className="delete-property-btn" onClick={handleDelete}>
-          {t("Delete")} {t("property")} 
+        {t("Delete")} {t("property")}
       </button>
     </div>
   );

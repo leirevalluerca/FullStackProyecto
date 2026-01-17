@@ -1,9 +1,13 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import "./PropertyCreateNew.css";
 import { useTranslation } from "react-i18next";
+import { usePropertyFeatures } from "../hooks/usePropertyFeatures";
+import { usePropertyImages } from "../hooks/usePropertyImages";
+import { usePropertySubmit } from "../hooks/usePropertySubmit";
 
 const PropertyCreateNew = () => {
   const { t } = useTranslation();
+
   const titleRef = useRef();
   const descriptionRef = useRef();
   const addressRef = useRef();
@@ -11,45 +15,27 @@ const PropertyCreateNew = () => {
   const cityRef = useRef();
   const priceRef = useRef();
   const maxGuestRef = useRef();
-  const [features, setFeatures] = useState([]);
-  const [images, setImages] = useState([]);
-  const [error, setError] = useState("");
 
-  const availableFeatures = [
-      "terraza",
-      "baño privado",
-      "piscina",
-      "desayuno incluido",
-      "aire acondicionado",
-      "calefacción",
-      "wifi",
-      "parking",
-      "vista al mar",
-      "mascotas permitidas",
-      "televisión",
-      "servicio de limpieza",
-  ];
+  const {
+    features,
+    availableFeatures,
+    handleFeatureChange,
+  } = usePropertyFeatures();
 
-  const handleFeatureChange = (e) => {
-    const { value, checked } = e.target;
-    setFeatures(prev =>
-      checked ? [...prev, value] : prev.filter(f => f !== value)
-    );
-  };
+  const {
+    images,
+    handleImageChange,
+  } = usePropertyImages();
 
-  // FUNCIÓN PARA SUBIR IMAGENES 
-  const handleImageChange = (e) => {
-    const files = Array.from(e.target.files); // convertimos FileList en array
-    setImages(prev => [...prev, ...files]);
-  };
+  const { submit, error } = usePropertySubmit({
+    url: `${import.meta.env.VITE_API_URL}/api/properties`,
+    method: "POST",
+  });
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setError("");
 
-    const token = localStorage.getItem("token");
     const formData = new FormData();
-
     formData.append("title", titleRef.current.value);
     formData.append("description", descriptionRef.current.value);
     formData.append("location[address]", addressRef.current.value);
@@ -59,26 +45,10 @@ const PropertyCreateNew = () => {
     formData.append("pricePerNight", priceRef.current.value);
     formData.append("features", JSON.stringify(features));
 
+    images.forEach(img => formData.append("images", img));
 
-    images.forEach((img) => formData.append("images", img)); // enviamos todos los archivos
-
-    try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/properties`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: formData,
-      });
-
-      const data = await res.json();
-      if (!res.ok) setError(data.message || "Error creating property");
-      else alert("Property created!");
-    } catch (err) {
-      setError("Server error. Please try again later.");
-    }
-};
-
+    submit(formData);
+  };
 
   return (
     <div className="create-property-page">
@@ -95,12 +65,11 @@ const PropertyCreateNew = () => {
           <label>{t("Description")}</label>
         </div>
 
-
         <div className="form-group">
           <input ref={addressRef} required placeholder=" " />
           <label>{t("Address")}</label>
         </div>
-        
+
         <div className="form-group">
           <input ref={countryRef} required placeholder=" " />
           <label>{t("Country")}</label>
@@ -153,7 +122,6 @@ const PropertyCreateNew = () => {
             ))}
           </div>
         </div>
-
 
         {error && <p className="error">{error}</p>}
 
