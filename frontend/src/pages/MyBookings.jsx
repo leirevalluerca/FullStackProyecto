@@ -40,7 +40,7 @@ const MyBookings = () => {
   const handleCancel = async (bookingId) => {
     const token = localStorage.getItem("token");
 
-    if (!window.confirm("¿Seguro que quieres cancelar esta reserva?")) return;
+    if (!window.confirm(t("confirmCancelBooking"))) return;
 
     try {
       const res = await fetch(
@@ -83,7 +83,7 @@ const MyBookings = () => {
 
         return (
           <div key={booking._id} className="mybooking-card">
-            {/* INFO IZQUIERDA */}
+            {/* INFO */}
             <div className="mybooking-info">
               <h3 className="mybooking-title">
                 {property?.title || "Propiedad eliminada"}
@@ -102,7 +102,7 @@ const MyBookings = () => {
                 </>
               ) : (
                 <p className="mybooking-warning">
-                  Esta propiedad ya no existe
+                  {t("propertyNoExist")}
                 </p>
               )}
 

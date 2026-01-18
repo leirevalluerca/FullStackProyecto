@@ -23,8 +23,7 @@
     font-size: 2rem;
 }
 
-/* ---------- FLOATING INPUTS ---------- */
-
+/* FLOATING INPUTS */
 .form-group {
     position: relative;
     margin-bottom: 1.8rem;
@@ -75,8 +74,6 @@
     color: #1b2f6a;
 }
 
-/* ---------- FEATURES ---------- */
-
 .features-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -103,8 +100,6 @@
     accent-color: #7a0000;
 }
 
-/* ---------- IMAGES ---------- */
-
 .images-preview {
     display: flex;
     flex-wrap: wrap;
@@ -126,8 +121,6 @@
     object-fit: cover;
 }
 
-/* ---------- ERROR ---------- */
-
 .error {
     margin-top: 1rem;
     padding: 0.75rem 1rem;
@@ -137,8 +130,6 @@
     font-size: 0.9rem;
     text-align: center;
 }
-
-/* ---------- BUTTON ---------- */
 
 .submit-btn {
     width: 100%;
@@ -157,8 +148,6 @@
     background-color: #7a0000;
     transform: translateY(-2px);
 }
-
-/* ---------- RESPONSIVE ---------- */
 
 @media (max-width: 768px) {
     .create-property-card {

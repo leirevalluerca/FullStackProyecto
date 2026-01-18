@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import "./EditProperty.css";
-import { usePropertyFeatures } from "../hooks/usePropertyFeatures";
-import { usePropertyImages } from "../hooks/usePropertyImages";
-import { usePropertySubmit } from "../hooks/usePropertySubmit";
+import usePropertyFeatures from "../hooks/usePropertyFeatures";
+import usePropertyImages from "../hooks/usePropertyImages";
+import usePropertySubmit from "../hooks/usePropertySubmit";
 
-const EditProperty = () => {
+const EditProperty = () => { 
   const { t } = useTranslation();
   const { id } = useParams();
   const navigate = useNavigate();
@@ -16,18 +16,9 @@ const EditProperty = () => {
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState("");
 
-  const {
-    features,
-    setFeatures,
-    availableFeatures,
-    handleFeatureChange,
-  } = usePropertyFeatures();
+  const { features, setFeatures, availableFeatures, handleFeatureChange } = usePropertyFeatures();
 
-  const {
-    images: newImages,
-    handleImageChange,
-    removeImage,
-  } = usePropertyImages();
+  const { images: newImages, handleImageChange, removeImage } = usePropertyImages();
 
   const { submit, error } = usePropertySubmit({
     url: `${import.meta.env.VITE_API_URL}/api/properties/${id}`,
@@ -168,7 +159,7 @@ const EditProperty = () => {
                   checked={features.includes(f)}
                   onChange={handleFeatureChange}
                 />
-                {f}
+                {t(`features.${f}`)}
               </label>
             ))}
           </div>

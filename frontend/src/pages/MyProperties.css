@@ -9,21 +9,21 @@
   gap: 16px;
 }
 
-/* CARD */
-.property-card {
+.my-property-card {
   display: flex;
   gap: 12px;
   border: 1px solid #7a000010;
   background-color: #7a000010;
   border-radius: 8px;
-  height: 250px;
+  min-height: 250px;
+  height: auto;
   padding: 0;
   box-sizing: border-box;
   align-items: stretch;
 }
 
 /* INFO */
-.property-info {
+.my-property-info {
   flex: 1;
   padding: 16px;
   display: flex;
@@ -32,34 +32,50 @@
   box-sizing: border-box;
 }
 
-.property-info h3,
-.property-info p {
+.my-property-info h3,
+.my-property-info p {
   margin: 0;
 }
 
-.property-info h3 {
+.my-property-info h3 {
   font-size: 24px;
   color: #7a0000;
 }
 
-.property-location {
+.my-property-location {
   font-size: 15px;
   color: #555;
 }
 
-.property-price {
+.my-property-delete {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 4px 10px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 12px;
+  background-color: #e6f4ea;
+  color: #1b6638;
+}
+
+.my-property-delete.inactive {
+  background-color: #fdecea;
+  color: #b42318;
+}
+
+.my-property-price {
   font-size: 18px;
   color: #555;
 }
 
-/* ACTIONS */
-.property-actions {
+.my-property-actions {
   display: flex;
   gap: 12px;
   margin-top: auto;
 }
 
-.property-actions a {
+.my-property-actions a {
   padding: 6px 12px;
   font-size: 13px;
   border-radius: 4px;
@@ -69,12 +85,11 @@
   font-weight: 500;
 }
 
-.property-actions a:hover {
+.my-property-actions a:hover {
   background-color: #5a0000;
 }
 
-/* CAROUSEL DERECHA */
-.property-carousel-my-properties {
+.my-property-carousel-my-properties {
   width: 400px;
   flex-shrink: 0;
   border-radius: 8px;
@@ -83,19 +98,18 @@
   background-color: #ffffff14;
 }
 
-.property-carousel-my-properties .carousel {
+.my-property-carousel-my-properties .carousel {
   width: 100%;
   height: 100%;
 }
 
-/* RESPONSIVE */
 @media (max-width: 768px) {
-  .property-card {
+  .my-property-card {
     flex-direction: column;
     height: auto;
   }
 
-  .property-carousel {
+  .my-property-carousel-my-properties {
     width: 100%;
     height: 200px;
   }

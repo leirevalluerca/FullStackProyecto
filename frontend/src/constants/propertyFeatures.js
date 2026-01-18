@@ -1,4 +1,4 @@
-export const PROPERTY_FEATURES = [
+const PROPERTY_FEATURES = [
   "terrace",
   "privateBathroom",
   "pool",
@@ -12,3 +12,5 @@ export const PROPERTY_FEATURES = [
   "tv",
   "cleaningService",
 ];
+
+export default PROPERTY_FEATURES

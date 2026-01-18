@@ -173,7 +173,7 @@ const updateProperty = async (req, res) => {
   }
 };
 
-// ELIMINAR UNA PROPERTY
+// ELIMINAR UNA PROPERTY (la propiedad no se elimina de la base de datos la desactivamos)
 const deleteProperty = async (req, res, next) => {
   try {
     // Comprobación de reservas activas

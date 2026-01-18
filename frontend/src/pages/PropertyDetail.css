@@ -33,7 +33,6 @@
   justify-content: space-between;
 }
 
-/* INPUTS EN FILA */
 .booking-inputs {
   display: flex;
   flex-direction: column;
@@ -49,19 +48,16 @@
   background: #ffffff;
 }
 
-/* PRECIO */
 .booking-info {
   color: #ffffff;
   font-size: 1rem;
 }
 
-/* ERROR */
 .booking-error {
   color: #ffd2d2;
   font-size: 0.9rem;
 }
 
-/* BOTÓN */
 .booking-box button {
   background: #ac2b2b;
   color: #ffffff;

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export const usePropertySubmit = ({ url, method }) => {
+const usePropertySubmit = ({ url, method }) => {
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
@@ -26,3 +26,5 @@ export const usePropertySubmit = ({ url, method }) => {
 
   return { submit, error };
 };
+
+export default usePropertySubmit;

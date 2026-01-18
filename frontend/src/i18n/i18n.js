@@ -73,8 +73,27 @@ i18n.use(initReactI18next).init({
         noBookings: "You don't have bookings",
         loginBeforeBooking: "Login to continue with the booking",
         iDontHaveAccount: "I don't have an account yet",
-        createAccount: "Create Account"
-
+        createAccount: "Create Account",
+        Available: "Available",
+        for: "for",
+        Yes: "Yes",
+        No: "No",
+        confirmCancelBooking: "Are you sure you want to cancel this booking?",
+        propertyNoExist: "This property does no longer exist.",
+        features: {
+          terrace: "Terrace",
+          privateBathroom: "Private bathroom",
+          pool: "Pool",
+          breakfastIncluded: "Breakfast included",
+          airConditioning: "Air conditioning",
+          heating: "Heating",
+          wifi: "Wi-Fi",
+          parking: "Parking",
+          seaView: "Sea view",
+          petsAllowed: "Pets allowed",
+          tv: "TV",
+          cleaningService: "Cleaning service"
+        }
       }
     },
     es: {
@@ -145,7 +164,27 @@ i18n.use(initReactI18next).init({
         noBookings: "No tienes reservas",
         loginBeforeBooking: "Inicia sesión para continuar con la reserva",
         iDontHaveAccount: "No tengo cuenta todavía",
-        createAccount: "Crear Cuenta"
+        createAccount: "Crear Cuenta",
+        Available: "Disponible",
+        for: "para",
+        Yes: "Si",
+        No: "No",
+        confirmCancelBooking: "¿Seguro que quieres cancelar esta reserva?",
+        propertyNoExist: "Esta propiedad ya no existe.",
+        features: {
+          terrace: "Terraza",
+          privateBathroom: "Baño privado",
+          pool: "Piscina",
+          breakfastIncluded: "Desayuno incluido",
+          airConditioning: "Aire acondicionado",
+          heating: "Calefacción",
+          wifi: "Wi-Fi",
+          parking: "Parking",
+          seaView: "Vista al mar",
+          petsAllowed: "Mascotas permitidas",
+          tv: "Televisión",
+          cleaningService: "Servicio de limpieza"
+        }
       }
     }
   },

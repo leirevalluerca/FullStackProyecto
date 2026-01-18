@@ -52,20 +52,25 @@ const MyProperties = () => {
       )}
 
       {properties.map((property) => (
-        <div key={property._id} className="property-card">
-          {/* INFO IZQUIERDA */}
-          <div className="property-info">
+        <div key={property._id} className="my-property-card">
+          {/* INFO */}
+          <div className="my-property-info">
             <h3>{property.title}</h3>
 
-            <p className="property-location">
+            <p className="my-property-location">
               📌 {property.location.city}, {property.location.country}
             </p>
 
-            <p className="property-price">
+            <p className={`my-property-delete ${property.isActive ? "" : "inactive"}`}>
+              {t("Available")} {t("for")} {t("booking")}:{" "}
+              {property.isActive ? t("Yes") : t("No")}
+            </p>
+
+            <p className="my-property-price">
               {property.pricePerNight} € / {t("night")}
             </p>
 
-            <div className="property-actions">
+            <div className="my-property-actions">
               <Link to={`/properties/${property._id}`}>{t("Watch")}</Link>
               <Link to={`/dashboard/my-properties/${property._id}/edit`}>
                 {t("Edit")}
@@ -73,9 +78,9 @@ const MyProperties = () => {
             </div>
           </div>
 
-          {/* CAROUSEL DERECHA */}
+          {/* CAROUSEL */}
           {property.images?.length > 0 && (
-            <div className="property-carousel-my-properties">
+            <div className="my-property-carousel-my-properties">
               <ImageCarousel images={property.images} />
             </div>
           )}

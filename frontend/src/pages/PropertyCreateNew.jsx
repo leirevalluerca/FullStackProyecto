@@ -1,9 +1,9 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import "./PropertyCreateNew.css";
 import { useTranslation } from "react-i18next";
-import { usePropertyFeatures } from "../hooks/usePropertyFeatures";
-import { usePropertyImages } from "../hooks/usePropertyImages";
-import { usePropertySubmit } from "../hooks/usePropertySubmit";
+import usePropertyFeatures from "../hooks/usePropertyFeatures";
+import usePropertyImages from "../hooks/usePropertyImages";
+import usePropertySubmit from "../hooks/usePropertySubmit";
 
 const PropertyCreateNew = () => {
   const { t } = useTranslation();
@@ -16,24 +16,27 @@ const PropertyCreateNew = () => {
   const priceRef = useRef();
   const maxGuestRef = useRef();
 
-  const {
-    features,
-    availableFeatures,
-    handleFeatureChange,
-  } = usePropertyFeatures();
+  const { features, availableFeatures, handleFeatureChange } = usePropertyFeatures();
 
-  const {
-    images,
-    handleImageChange,
-  } = usePropertyImages();
+  const { images, handleImageChange } = usePropertyImages();
 
   const { submit, error } = usePropertySubmit({
     url: `${import.meta.env.VITE_API_URL}/api/properties`,
     method: "POST",
   });
 
+  const [imageError, setImageError] = useState("");
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Validación obligatoria de imágenes
+    if (images.length === 0) {
+      setImageError(t("You must upload at least one image"));
+      return;
+    }
+
+    setImageError("");
 
     const formData = new FormData();
     formData.append("title", titleRef.current.value);
@@ -45,7 +48,7 @@ const PropertyCreateNew = () => {
     formData.append("pricePerNight", priceRef.current.value);
     formData.append("features", JSON.stringify(features));
 
-    images.forEach(img => formData.append("images", img));
+    images.forEach((img) => formData.append("images", img));
 
     submit(formData);
   };
@@ -53,7 +56,9 @@ const PropertyCreateNew = () => {
   return (
     <div className="create-property-page">
       <form className="create-property-card" onSubmit={handleSubmit}>
-        <h2>{t("Create")} {t("new")} {t("property")}</h2>
+        <h2>
+          {t("Create")} {t("new")} {t("property")}
+        </h2>
 
         <div className="form-group">
           <input ref={titleRef} required placeholder=" " />
@@ -87,20 +92,23 @@ const PropertyCreateNew = () => {
 
         <div className="form-group">
           <input ref={priceRef} required placeholder=" " />
-          <label>{t("Price")} {t("per")} {t("night")} (€)</label>
+          <label>
+            {t("Price")} {t("per")} {t("night")} (€)
+          </label>
         </div>
 
         <div className="features-section">
           <h4>{t("Features")}</h4>
           <div className="features-grid">
-            {availableFeatures.map(f => (
+            {availableFeatures.map((f) => (
               <label key={f} className="feature-item">
                 <input
                   type="checkbox"
                   value={f}
+                  checked={features.includes(f)}
                   onChange={handleFeatureChange}
                 />
-                {f}
+                {t(`features.${f}`)}
               </label>
             ))}
           </div>
@@ -114,6 +122,10 @@ const PropertyCreateNew = () => {
             accept="image/*"
             onChange={handleImageChange}
           />
+
+          {/* Error de imágenes */}
+          {imageError && <p className="error">{imageError}</p>}
+
           <div className="images-preview">
             {images.map((img, idx) => (
               <div key={idx} className="image-thumb">

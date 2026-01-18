@@ -1,6 +1,7 @@
 import { useState } from "react";
 
-const AVAILABLE_FEATURES = [
+import AVAILABLE_FEATURES from "../constants/propertyFeatures"
+/* const AVAILABLE_FEATURES = [
   "terraza",
   "baño privado",
   "piscina",
@@ -13,9 +14,9 @@ const AVAILABLE_FEATURES = [
   "mascotas permitidas",
   "televisión",
   "servicio de limpieza",
-];
+]; */
 
-export const usePropertyFeatures = (initialFeatures = []) => {
+const usePropertyFeatures = (initialFeatures = []) => {
   const [features, setFeatures] = useState(initialFeatures);
 
   const handleFeatureChange = (e) => {
@@ -32,3 +33,5 @@ export const usePropertyFeatures = (initialFeatures = []) => {
     handleFeatureChange,
   };
 };
+
+export default usePropertyFeatures;

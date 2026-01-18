@@ -5,20 +5,7 @@ import { Link } from "react-router-dom";
 import "./PropertyList.css";
 import { useTranslation } from "react-i18next";
 
-const AVAILABLE_FEATURES = [
-    "wifi",
-    "aire acondicionado",
-    "piscina",
-    "terraza",
-    "parking",
-    "baño privado",
-    "desayuno incluido",
-    "mascotas permitidas",
-    "cocina",
-    "lavadora",
-    "calefacción",
-    "tv"
-];
+import AVAILABLE_FEATURES from "../constants/propertyFeatures"
 
 const PropertiesList = () => {
   const { t } = useTranslation();
@@ -74,7 +61,7 @@ const PropertiesList = () => {
       <SearchBar onSearch={handleSearch} />
 
       <div className="properties-layout">
-        {/* FILTER SIDEBAR */}
+        {/* FILTER*/}
         <aside className="features">
           <h3>{t("Features")}</h3>
           {AVAILABLE_FEATURES.map(feature => (
@@ -84,7 +71,7 @@ const PropertiesList = () => {
                 checked={selectedFeatures.includes(feature)}
                 onChange={() => toggleFeature(feature)}
               />
-              {feature}
+              {t(`features.${feature}`)}
             </label>
           ))}
         </aside>
@@ -92,26 +79,26 @@ const PropertiesList = () => {
         {/* PROPERTY LIST */}
         <section className="properties-list">
           {properties.map(property => (
-            <div className="property-card" key={property._id}>
+            <div className="property-list-card" key={property._id}>
               <div className="carrousel-proterties-list">
                 <ImageCarousel images={property.images} />
               </div>
 
-              <div className="property-info">
-                <h3 className="property-title">
+              <div className="property-list-info">
+                <h3 className="property-list-title">
                   <Link to={`/properties/${property._id}`}>
                     {property.title}
                   </Link>
                 </h3>
-                <p className="property-location">
+                <p className="property-list-location">
                   {property.location.city}, {property.location.country}
                 </p>
-                <p className="property-owner">
+                <p className="property-list-owner">
                   {t("hostedBy")} <strong>{property.owner?.username}</strong>
                 </p>
               </div>
 
-              <div className="property-price">
+              <div className="property-list-price">
                 <span>{property.pricePerNight} €</span>
                 <small>/ {t("night")}</small>
               </div>

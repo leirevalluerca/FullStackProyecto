@@ -82,12 +82,11 @@ const PropertyDetail = () => {
 
       <div className="property-content">
         
-        {/* IZQUIERDA: Carrusel */}
         <div className="property-carousel">
           <ImageCarousel images={property.images} />
         </div>
 
-        {/* DERECHA: Caja de reserva */}
+        {/*Caja de reserva */}
         <div className="booking-box">
           <div className="booking-inputs">
             <input
@@ -127,7 +126,10 @@ const PropertyDetail = () => {
       </div>
       
         <div className="property-description">
-          <p><strong>{t("Features")}:</strong> {property.features.join(", ")}</p>
+          <p>
+            <strong>{t("Features")}:</strong>{" "}
+            {property.features.map(f => t(`features.${f}`)).join(", ")}
+          </p>
           
           <p><strong>{t("Description")}:</strong> {property.description}</p>
           
